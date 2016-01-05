@@ -5,7 +5,7 @@ import os
 app = Flask(__name__)
 
 
-@app.route('/facultyadvdet', methods=["GET"])
+@app.route('/atten', methods=["GET"])
 def attendanceDet():
 	reg_no = request.args.get("regNo")
 	dob = request.args.get("dob")
