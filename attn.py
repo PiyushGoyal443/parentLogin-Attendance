@@ -18,7 +18,7 @@ def get_atten(reg_no = "", pwd = "", mob_num = ""):
 	#open website
 
 	# response = br.open("https://academics.vit.ac.in/student/stud_login.asp")
-	response = br.open("https://academics.vit.ac.in/parent/parent_login.asp")
+	response = br.open("https://vtop.vit.ac.in/parent/parent_login.asp")
 	print br.geturl()
 
 	#select form
@@ -31,7 +31,7 @@ def get_atten(reg_no = "", pwd = "", mob_num = ""):
 	
 	
 	#retrieving captcha image
-	br.retrieve("https://academics.vit.ac.in/parent/"+img['src'], "captcha_parent.bmp")
+	br.retrieve("https://vtop.vit.ac.in/parent/"+img['src'], "captcha_parent.bmp")
 	
 	# print str("https://academics.vit.ac.in/parent/"+img['src'], "captcha_parent")
 
@@ -48,14 +48,14 @@ def get_atten(reg_no = "", pwd = "", mob_num = ""):
 	br["vrfcd"] = str(captcha)
 	br.method = "POST"
 	br.submit()
-	if br.geturl()==("https://academics.vit.ac.in/parent/home.asp"):
+	if br.geturl()==("https://vtop.vit.ac.in/parent/home.asp"):
 		print "SUCCESS"
 		
 		#attendance page 
 		months = {1:"Jan", 2:"Feb", 3:"Mar", 4:"Apr", 5:"May", 6:"Jun", 7:"Jul", 8:"Aug", 9:"Sep", 10:"Oct", 11:"Nov", 12:"Dec"}
 		atten = {}
-		br.open("https://academics.vit.ac.in/parent/attn_report.asp?sem=WS")
-		response = br.open("https://academics.vit.ac.in/parent/attn_report.asp?sem=WS")
+		br.open("https://vtop.vit.ac.in/parent/attn_report.asp?sem=WS")
+		response = br.open("https://vtop.vit.ac.in/parent/attn_report.asp?sem=WS")
 		soup = BeautifulSoup(response.get_data())
 
 		br.select_form(nr=0)
@@ -65,7 +65,7 @@ def get_atten(reg_no = "", pwd = "", mob_num = ""):
 		now = datetime.datetime.now(tz)
 		to_date = str(now.day) + "-" + months[now.month] + "-" + str(now.year)
 		
-		response = br.open("https://academics.vit.ac.in/parent/attn_report.asp?sem=WS&fmdt=%(from_date)s&todt=%(to_date)s" % {"from_date":from_date, "to_date":to_date} )
+		response = br.open("https://vtop.vit.ac.in/parent/attn_report.asp?sem=WS&fmdt=%(from_date)s&todt=%(to_date)s" % {"from_date":from_date, "to_date":to_date} )
 		soup = BeautifulSoup(response.get_data())
 		tables = soup.findAll("table")
 		trs = soup.findAll("table")[len(tables)-2].findAll("tr")
